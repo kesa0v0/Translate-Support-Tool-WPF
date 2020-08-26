@@ -7,12 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <ListViewItem Grid.Column="0"/>
-        <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ListViewItem Grid.Row="1" Grid.Column="0" Margin="0,0,0.4,0.4" Grid.RowSpan="2"/>
+        <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="3*"/>
@@ -20,9 +24,9 @@
                 <RowDefinition Height="6*"/>
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Gray"/>
-            <Label Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray"/>
-            <TextBox Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DimGray"/>
+            <Label Name="Context" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Gray"/>
+            <Label Name="Origin" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray"/>
+            <TextBox Name="Translated" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DimGray"/>
         </Grid>
 
     </Grid>
