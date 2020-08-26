@@ -636,3 +636,5 @@ git_stats/*
 StyleCop.Cache
 bin
 obj
+!/Translate-Support-Tool-WPF-Main/testData/
+Translate-Support-Tool-WPF-Main/testData/
