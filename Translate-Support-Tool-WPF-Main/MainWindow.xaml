@@ -26,7 +26,7 @@
             </Grid.RowDefinitions>
             <Label Name="Context" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Gray"/>
             <Label Name="Origin" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray"/>
-            <TextBox Name="Translated" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DimGray"/>
+            <TextBox Name="Dest" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DimGray"/>
         </Grid>
 
     </Grid>
