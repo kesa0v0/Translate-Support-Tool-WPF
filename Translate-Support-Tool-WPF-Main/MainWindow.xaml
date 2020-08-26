@@ -5,8 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Translate_Support_Tool_WPF_Main"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="720" Width="1280">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <ListViewItem />
+        <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="6*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Gray"/>
+            <Label Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray"/>
+            <TextBox Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DimGray"/>
+        </Grid>
+
     </Grid>
 </Window>
