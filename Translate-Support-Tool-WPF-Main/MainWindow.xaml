@@ -21,12 +21,15 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="3*"/>
+                <RowDefinition Height="20"/>
                 <RowDefinition Height="6*"/>
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
             <Label Name="Context" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Gray"/>
             <Label Name="Origin" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray"/>
             <TextBox Name="Dest" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DimGray"/>
+            
+            <Button Name="Confirm" Grid.Row="3" Height="20" Width="80" Content="Confirm" />
         </Grid>
 
     </Grid>
