@@ -16,9 +16,9 @@ namespace Translate_Support_Tool_WPF_Main
 
             // Context.Content = file[0];
             // Origin.Content = file[1];
-
+            
             Context.Content = rawFile[1].Split(':')[0];
-            Context.Content = rawFile[1].Split(':')[1].Substring(2, -1);
+            Origin.Content = rawFile[1].Split(':')[1].Substring(2);
         }
     }
 
@@ -35,6 +35,7 @@ namespace Translate_Support_Tool_WPF_Main
             
             // processing
             // DataStructure = {0, ("origin", "dest")}
+            // ss
             
             return dictionary;
         }
