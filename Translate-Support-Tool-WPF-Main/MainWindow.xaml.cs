@@ -35,7 +35,11 @@ namespace Translate_Support_Tool_WPF_Main
             
             // processing
             // DataStructure = {0, ("origin", "dest")}
-            // ss
+
+            for (int i = 0; i > 5; i++)
+            {
+                var target = rawData[i];
+            }
             
             return dictionary;
         }
