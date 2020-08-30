@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Translate_Support_Tool_WPF_Main
 {
@@ -12,15 +15,33 @@ namespace Translate_Support_Tool_WPF_Main
             var fileManager = new FileManager();
             
             var rawFile = fileManager.ReadFile(@"C:\_Storage\Programming\MyProject\WPF\Translate-Support-Tool-WPF\Translate-Support-Tool-WPF-Main\testData\test.yml");
-            // var file = fileManager.Yaml(rawFile);
+            var file = fileManager.Yaml(rawFile);
 
-            // Context.Content = file[0];
-            // Origin.Content = file[1];
+            foreach (var t in rawFile)
+            {
+                ListViewData.GetInstance().Add(new ListViewData() { Context = t });
+            }
             
-            Context.Content = rawFile[1].Split(':')[0];
-            Origin.Content = rawFile[1].Split(':')[1].Substring(2);
+            TextList.ItemsSource = ListViewData.GetInstance();
+            
+            TextList.SelectionChanged
         }
     }
+
+    class ListViewData
+    {
+        public string Context { get; set; }
+
+        private static List<ListViewData> instance;
+
+        public static List<ListViewData> GetInstance()
+        {
+            if (instance == null)
+                instance = new List<ListViewData>();
+
+            return instance;
+        }
+}
 
     class FileManager
     {
@@ -29,19 +50,9 @@ namespace Translate_Support_Tool_WPF_Main
              return System.IO.File.ReadAllLines(location);
         }
 
-        public Dictionary<int, string[]> Yaml(string[] rawData)
+        public string Yaml(string[] rawData)
         {
-            var dictionary = new Dictionary<int, string[]>();
-            
-            // processing
-            // DataStructure = {0, ("origin", "dest")}
-
-            for (int i = 0; i > 5; i++)
-            {
-                var target = rawData[i];
-            }
-            
-            return dictionary;
+            return "";
         }
     }
 }

@@ -15,7 +15,15 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <ListViewItem Grid.Row="1" Grid.Column="0" Margin="0,0,0.4,0.4" Grid.RowSpan="2"/>
+        
+        <ListView Name="TextList" Grid.Row="1" Grid.Column="0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Context" DisplayMemberBinding="{Binding Context}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
         <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -25,11 +33,12 @@
                 <RowDefinition Height="6*"/>
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
+            
             <Label Name="Context" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Gray"/>
             <Label Name="Origin" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray"/>
             <TextBox Name="Dest" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DimGray"/>
             
-            <Button Name="Confirm" Grid.Row="3" Height="20" Width="80" Content="Confirm" />
+            <Button Name="Confirm" Grid.Row="3" HorizontalAlignment="Right" Height="20" Width="80" Content="Confirm" />
         </Grid>
 
     </Grid>
