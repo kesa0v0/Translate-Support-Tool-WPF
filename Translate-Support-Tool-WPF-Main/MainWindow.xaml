@@ -16,13 +16,9 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         
-        <ListView Name="TextList" Grid.Row="1" Grid.Column="0">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Context" DisplayMemberBinding="{Binding Context}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <ListBox Name="TextList" Grid.Row="1" Grid.Column="0">
+            
+        </ListBox>
 
         <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
