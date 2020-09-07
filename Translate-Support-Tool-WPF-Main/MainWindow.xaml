@@ -16,8 +16,13 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         
-        <ListBox Name="TextList" Grid.Row="1" Grid.Column="0">
-            
+        <ListBox Name="TextList" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                 SelectionMode="Single" SelectionChanged="TextList_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Origin}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
 
         <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
