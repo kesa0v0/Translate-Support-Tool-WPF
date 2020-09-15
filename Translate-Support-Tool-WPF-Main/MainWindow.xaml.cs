@@ -32,6 +32,10 @@ namespace Translate_Support_Tool_WPF_Main
                 Origin.Content = (TextList.SelectedItem as TextListItem)?.Origin;
             }
         }
+        private void Confirm_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 
     public class TextListItem
