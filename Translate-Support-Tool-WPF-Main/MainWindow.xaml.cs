@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace Translate_Support_Tool_WPF_Main
 {
@@ -17,10 +17,10 @@ namespace Translate_Support_Tool_WPF_Main
             var rawFile = fileManager.ReadFile(@"C:\_Storage\Programming\MyProject\WPF\Translate-Support-Tool-WPF\Translate-Support-Tool-WPF-Main\testData\test.yml");
             var file = fileManager.Yaml(rawFile);
 
-            List<TextListItem> items = new List<TextListItem>();
-            items.Add(new TextListItem() { Context = "context1", Origin = "test1"});
-            items.Add(new TextListItem() { Context = "context1", Origin = "test2"});
-            items.Add(new TextListItem() { Origin = "test3"});
+            List<TranslateItem> items = new List<TranslateItem>();
+            items.Add(new TranslateItem() { Context = "context1", Origin = "test1"});
+            items.Add(new TranslateItem() { Context = "context1", Origin = "test2"});
+            items.Add(new TranslateItem() { Origin = "test3"});
             TextList.ItemsSource = items;
         }
 
@@ -28,8 +28,8 @@ namespace Translate_Support_Tool_WPF_Main
         {
             if (TextList.SelectedItem != null)
             {
-                Context.Content = (TextList.SelectedItem as TextListItem)?.Context;
-                Origin.Content = (TextList.SelectedItem as TextListItem)?.Origin;
+                Context.Content = (TextList.SelectedItem as TranslateItem)?.Context;
+                Origin.Content = (TextList.SelectedItem as TranslateItem)?.Origin;
             }
         }
         private void Confirm_OnClick(object sender, RoutedEventArgs e)
@@ -37,13 +37,18 @@ namespace Translate_Support_Tool_WPF_Main
             
         }
     }
-
-    public class TextListItem
-    {
-        public string Context { get; set; }
-        public string Origin { get; set; }
-    }
 }
+
+public class TranslateItem
+{
+    // is this string target to translate?
+    public Boolean IsTarget { get; set; }
+    public string Context { get; set; }
+    public string Origin { get; set; }
+}
+
+
+
 class FileManager
 {
     public string[] ReadFile(string location)
@@ -51,8 +56,20 @@ class FileManager
          return System.IO.File.ReadAllLines(location);
     }
 
-    public string Yaml(string[] rawData)
+    public List<YamlList> Yaml(string[] rawData)
     {
-        return "";
+        var result = new List<YamlList>();
+        
+        // TODO: Some kind of get yml text
+        // maybe can use regex
+        
+        return result;
+    }
+    
+    public class YamlList : List<TranslateItem>
+    {
+        public string WhatLanguage { get; set; }
+    
+    
     }
 }
