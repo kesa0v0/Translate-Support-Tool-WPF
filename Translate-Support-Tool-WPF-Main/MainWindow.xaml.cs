@@ -12,11 +12,6 @@ namespace Translate_Support_Tool_WPF_Main
         {
             InitializeComponent();
 
-            var fileManager = new FileManager();
-            
-            var rawFile = fileManager.ReadFile(@"C:\_Storage\Programming\MyProject\WPF\Translate-Support-Tool-WPF\Translate-Support-Tool-WPF-Main\testData\test.yml");
-            var file = fileManager.Yaml(rawFile);
-
             List<TranslateItem> items = new List<TranslateItem>();
             items.Add(new TranslateItem() { Context = "context1", Origin = "test1"});
             items.Add(new TranslateItem() { Context = "context1", Origin = "test2"});
@@ -24,8 +19,7 @@ namespace Translate_Support_Tool_WPF_Main
             TextList.ItemsSource = items;
         }
 
-        private void TextList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        private void TextList_SelectionChanged(object sender, RoutedEventArgs e) {
             if (TextList.SelectedItem != null)
             {
                 Context.Content = (TextList.SelectedItem as TranslateItem)?.Context;
@@ -35,6 +29,21 @@ namespace Translate_Support_Tool_WPF_Main
         private void Confirm_OnClick(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void MenuItem_New(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void MenuItem_Open(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void MenuItem_Save(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

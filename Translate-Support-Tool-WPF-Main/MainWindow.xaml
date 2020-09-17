@@ -8,40 +8,49 @@
         Title="MainWindow" Height="720" Width="1280">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="7*"/>
-        </Grid.ColumnDefinitions>
         
-        <ListBox Name="TextList" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                 SelectionMode="Single" SelectionChanged="TextList_SelectionChanged">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Origin}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Menu Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Click="MenuItem_New" />
+                <MenuItem Header="_Open" Click="MenuItem_Open" />
+                <MenuItem Header="_Save" Click="MenuItem_Save" InputGestureText="Ctrl+S"/>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
+            
+            <ListBox Name="TextList" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                     SelectionMode="Single" SelectionChanged="TextList_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Origin}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
-        <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="6*"/>
-                <RowDefinition Height="6*"/>
-            </Grid.RowDefinitions>
-            
-            <Label Name="Context" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Gray"/>
-            <Label Name="Origin" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray"/>
-            <TextBox Name="Dest" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DimGray"/>
-            
-            <Button Name="Confirm" Grid.Row="3" HorizontalAlignment="Right" Height="20" Width="80" Content="Confirm" 
-                    Click="Confirm_OnClick"/>
+            <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="6*"/>
+                </Grid.RowDefinitions>
+                
+                <Label Name="Context" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Gray"/>
+                <Label Name="Origin" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray"/>
+                <TextBox Name="Dest" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DimGray"/>
+                
+                <Button Name="Confirm" Grid.Row="3" HorizontalAlignment="Right" Height="20" Width="80" Content="Confirm" 
+                        Click="Confirm_OnClick"/>
+            </Grid>
         </Grid>
-
     </Grid>
 </Window>
