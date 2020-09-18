@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
+using Microsoft.Win32;
 
 namespace Translate_Support_Tool_WPF_Main
 {
     public partial class MainWindow
     {
+        private FileManager _fileManager;
         public MainWindow()
         {
             InitializeComponent();
+            
+            _fileManager = new FileManager();
 
-            List<TranslateItem> items = new List<TranslateItem>();
-            items.Add(new TranslateItem() { Context = "context1", Origin = "test1"});
-            items.Add(new TranslateItem() { Context = "context1", Origin = "test2"});
-            items.Add(new TranslateItem() { Origin = "test3"});
-            TextList.ItemsSource = items;
         }
 
         private void TextList_SelectionChanged(object sender, RoutedEventArgs e) {
@@ -38,7 +38,8 @@ namespace Translate_Support_Tool_WPF_Main
 
         private void MenuItem_Open(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            FileManager.YamlList items = _fileManager.Yaml(_fileManager.Open());
+            TextList.ItemsSource = items;
         }
 
         private void MenuItem_Save(object sender, RoutedEventArgs e)
@@ -60,18 +61,38 @@ public class TranslateItem
 
 class FileManager
 {
-    public string[] ReadFile(string location)
+    public string Open()
     {
-         return System.IO.File.ReadAllLines(location);
+        OpenFileDialog openFileDialog = new OpenFileDialog();
+
+        if (openFileDialog.ShowDialog() == true)
+        {
+            var fileContent = File.ReadAllText(openFileDialog.FileName);
+            return fileContent;
+        }
+
+        return "";
     }
 
-    public List<YamlList> Yaml(string[] rawData)
+    public YamlList Yaml(string rawData)
     {
-        var result = new List<YamlList>();
+        var result = new YamlList();
+        
+        result.Add(new TranslateItem() { Context = "context1", Origin = "test1"});
         
         // TODO: Some kind of get yml text
         // maybe can use regex
+
+        // var languageRegex = @"\bl_(\S+):\b";
+        var languageRegex = @"\S+";
+        var lineRegex = @"";
+        var commentRegex = @"";
         
+        var languageMatch = new Regex(languageRegex).Match(rawData);
+        result.WhatLanguage = languageMatch.Value;
+        
+        result.Add(new TranslateItem() { Context = "What language", Origin = result.WhatLanguage});
+
         return result;
     }
     
@@ -79,6 +100,6 @@ class FileManager
     {
         public string WhatLanguage { get; set; }
     
-    
+        
     }
 }
