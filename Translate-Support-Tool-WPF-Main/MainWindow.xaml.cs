@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -14,9 +13,14 @@ namespace Translate_Support_Tool_WPF_Main
         public MainWindow()
         {
             InitializeComponent();
-            
+
             _fileManager = new FileManager();
 
+            var file =
+                @"C:\_Storage\Programming\MyProject\WPF\Translate-Support-Tool-WPF\Translate-Support-Tool-WPF-Main\sample\test.yml";
+            string fileContents = File.ReadAllText(file);
+            FileManager.YamlList items = _fileManager.Yaml(fileContents);
+            TextList.ItemsSource = items;
         }
 
         private void TextList_SelectionChanged(object sender, RoutedEventArgs e) {
@@ -28,12 +32,12 @@ namespace Translate_Support_Tool_WPF_Main
         }
         private void Confirm_OnClick(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void MenuItem_New(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void MenuItem_Open(object sender, RoutedEventArgs e)
@@ -58,7 +62,6 @@ public class TranslateItem
 }
 
 
-
 class FileManager
 {
     public string Open()
@@ -77,29 +80,27 @@ class FileManager
     public YamlList Yaml(string rawData)
     {
         var result = new YamlList();
-        
+
         result.Add(new TranslateItem() { Context = "context1", Origin = "test1"});
-        
+
         // TODO: Some kind of get yml text
         // maybe can use regex
 
-        // var languageRegex = @"\bl_(\S+):\b";
-        var languageRegex = @"\S+";
         var lineRegex = @"";
         var commentRegex = @"";
-        
-        var languageMatch = new Regex(languageRegex).Match(rawData);
-        result.WhatLanguage = languageMatch.Value;
-        
-        result.Add(new TranslateItem() { Context = "What language", Origin = result.WhatLanguage});
+
+        var lineMatch = new Regex(lineRegex).Match(rawData);
+        result.WhatLanguage = lineMatch.Value;
+
+        result.Add(new TranslateItem() { Context = "", Origin = result.WhatLanguage});
 
         return result;
     }
-    
+
     public class YamlList : List<TranslateItem>
     {
         public string WhatLanguage { get; set; }
-    
-        
+
+
     }
 }
