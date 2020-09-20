@@ -57,6 +57,8 @@ public class TranslateItem
 {
     // is this string target to translate?
     public Boolean IsTarget { get; set; }
+    
+    public int Indent { get; set; }
     public string Context { get; set; }
     public string Origin { get; set; }
 }
@@ -81,26 +83,42 @@ class FileManager
     {
         var result = new YamlList();
 
-        result.Add(new TranslateItem() { Context = "context1", Origin = "test1"});
+        result.Add(new TranslateItem { Context = "context1", Origin = "test1"});
 
         // TODO: Some kind of get yml text
         // maybe can use regex
+        
+        // 한줄한줄 변환해도 될듯
 
-        var lineRegex = @"";
-        var commentRegex = @"";
+        var lineRegex = @"\b(\s*|\t*)(\S+)\s*:0\s*""(.*)""(?!\n)";
+        var commentRegex = @"#.*(?!\n)";
 
-        var lineMatch = new Regex(lineRegex).Match(rawData);
-        result.WhatLanguage = lineMatch.Value;
-
-        result.Add(new TranslateItem() { Context = "", Origin = result.WhatLanguage});
+        var lineMatches = new Regex(lineRegex).Matches(rawData);
+        foreach (var lineMatch in lineMatches)
+        {
+            result.Add(new TranslateItem
+            {
+                IsTarget = true,
+                Context = lineMatch.ToString(),
+                Origin = lineMatch.ToString()
+            });
+        }
+        
+        var commentMatches = new Regex(commentRegex).Matches(rawData);
+        foreach (var commentMatch in commentMatches)
+        {
+            result.Add(new TranslateItem
+            {
+                IsTarget = false,
+                Context = commentMatch.ToString(),
+                Origin = commentMatch.ToString()
+            });
+        }
 
         return result;
     }
 
     public class YamlList : List<TranslateItem>
     {
-        public string WhatLanguage { get; set; }
-
-
     }
 }
