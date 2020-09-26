@@ -18,7 +18,7 @@ namespace Translate_Support_Tool_WPF_Main
 
             var file =
                 @"C:\_Storage\Programming\MyProject\WPF\Translate-Support-Tool-WPF\Translate-Support-Tool-WPF-Main\sample\test.yml";
-            string fileContents = File.ReadAllText(file);
+            string[] fileContents = File.ReadAllLines(file);
             FileManager.YamlList items = _fileManager.Yaml(fileContents);
             TextList.ItemsSource = items;
         }
@@ -66,20 +66,20 @@ public class TranslateItem
 
 class FileManager
 {
-    public string Open()
+    public string[] Open()
     {
         OpenFileDialog openFileDialog = new OpenFileDialog();
 
         if (openFileDialog.ShowDialog() == true)
         {
-            var fileContent = File.ReadAllText(openFileDialog.FileName);
+            var fileContent = File.ReadAllLines(openFileDialog.FileName);
             return fileContent;
         }
 
-        return "";
+        return new string[]{};
     }
 
-    public YamlList Yaml(string rawData)
+    public YamlList Yaml(string[] rawData)
     {
         var result = new YamlList();
 
@@ -89,31 +89,39 @@ class FileManager
         // maybe can use regex
         
         // 한줄한줄 변환해도 될듯
-
+        
         var lineRegex = @"\b(\s*|\t*)(\S+)\s*:0\s*""(.*)""(?!\n)";
         var commentRegex = @"#.*(?!\n)";
-
-        var lineMatches = new Regex(lineRegex).Matches(rawData);
-        foreach (var lineMatch in lineMatches)
-        {
-            result.Add(new TranslateItem
-            {
-                IsTarget = true,
-                Context = lineMatch.ToString(),
-                Origin = lineMatch.ToString()
-            });
-        }
         
-        var commentMatches = new Regex(commentRegex).Matches(rawData);
-        foreach (var commentMatch in commentMatches)
+        foreach (var line in rawData)
         {
-            result.Add(new TranslateItem
-            {
-                IsTarget = false,
-                Context = commentMatch.ToString(),
-                Origin = commentMatch.ToString()
-            });
+            var lineMatches = new Regex(lineRegex).Matches(line);
+            var commentMatches = new Regex(commentRegex).Matches(line);
+            
         }
+
+
+        // 
+        // foreach (var lineMatch in lineMatches)
+        // {
+        //     result.Add(new TranslateItem
+        //     {
+        //         IsTarget = true,
+        //         Context = lineMatch.ToString(),
+        //         Origin = lineMatch.ToString()
+        //     });
+        // }
+        //
+        // 
+        // foreach (var commentMatch in commentMatches)
+        // {
+        //     result.Add(new TranslateItem
+        //     {
+        //         IsTarget = false,
+        //         Context = commentMatch.ToString(),
+        //         Origin = commentMatch.ToString()
+        //     });
+        // }
 
         return result;
     }
