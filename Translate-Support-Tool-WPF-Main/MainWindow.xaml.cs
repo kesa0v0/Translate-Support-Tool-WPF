@@ -55,11 +55,9 @@ namespace Translate_Support_Tool_WPF_Main
 
 public class TranslateItem
 {
-    // is this string target to translate?
-    public Boolean IsTarget { get; set; }
-    
-    public int Indent { get; set; }
+    public string Comment { get; set; }
     public string Context { get; set; }
+    public string Number { get; set; } 
     public string Origin { get; set; }
 }
 
@@ -86,42 +84,27 @@ class FileManager
         result.Add(new TranslateItem { Context = "context1", Origin = "test1"});
 
         // TODO: Some kind of get yml text
-        // maybe can use regex
         
-        // 한줄한줄 변환해도 될듯
-        
-        var lineRegex = @"\b(\s*|\t*)(\S+)\s*:0\s*""(.*)""(?!\n)";
-        var commentRegex = @"#.*(?!\n)";
+        var lineRegex = @"\b(?:\s*|\t*)(\S+)\s*:([0-9]*)\s*""(.*)""";
+        var commentRegex = @"(#.*)";
         
         foreach (var line in rawData)
         {
-            var lineMatches = new Regex(lineRegex).Matches(line);
-            var commentMatches = new Regex(commentRegex).Matches(line);
+            var lineMatches = new Regex(lineRegex).Match(line);
+            var commentMatches = new Regex(commentRegex).Match(line);
+
+            var lineMatchesGroups = lineMatches.Groups;
+            var comment = commentMatches.Groups;
             
+            
+            result.Add(new TranslateItem
+            {
+                Comment = comment[0].Value,
+                Context = lineMatchesGroups[1].Value,
+                Number = lineMatchesGroups[2].Value,
+                Origin = lineMatchesGroups[3].Value,
+            });
         }
-
-
-        // 
-        // foreach (var lineMatch in lineMatches)
-        // {
-        //     result.Add(new TranslateItem
-        //     {
-        //         IsTarget = true,
-        //         Context = lineMatch.ToString(),
-        //         Origin = lineMatch.ToString()
-        //     });
-        // }
-        //
-        // 
-        // foreach (var commentMatch in commentMatches)
-        // {
-        //     result.Add(new TranslateItem
-        //     {
-        //         IsTarget = false,
-        //         Context = commentMatch.ToString(),
-        //         Origin = commentMatch.ToString()
-        //     });
-        // }
 
         return result;
     }
