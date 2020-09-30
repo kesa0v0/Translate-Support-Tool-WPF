@@ -26,10 +26,11 @@
             </Grid.ColumnDefinitions>
             
             <ListBox Name="TextList" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                     SelectionMode="Single" SelectionChanged="TextList_SelectionChanged">
+                     SelectionMode="Single" SelectionChanged="TextList_SelectionChanged" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Context}" />
+                        <TextBlock Text="{Binding Context}"
+                                   Visibility="{Binding IsVisible}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

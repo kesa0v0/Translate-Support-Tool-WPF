@@ -55,6 +55,7 @@ namespace Translate_Support_Tool_WPF_Main
 
 public class TranslateItem
 {
+    public Visibility IsVisible { get; set; }
     public string Comment { get; set; }
     public string Context { get; set; }
     public string Number { get; set; } 
@@ -92,15 +93,22 @@ class FileManager
         {
             var lineMatches = new Regex(lineRegex).Match(line);
             var commentMatches = new Regex(commentRegex).Match(line);
-
+            
             var lineMatchesGroups = lineMatches.Groups;
             var comment = commentMatches.Groups;
-            
-            
+
+            var tempVisible = Visibility.Visible;
+            if (lineMatches.Success == false)
+            {
+                tempVisible = Visibility.Hidden;
+            }
+
             result.Add(new TranslateItem
             {
+                IsVisible = tempVisible,
                 Comment = comment[0].Value,
-                Context = lineMatchesGroups[1].Value,
+                // Context = lineMatchesGroups[1].Value,
+                Context = tempVisible.ToString(),
                 Number = lineMatchesGroups[2].Value,
                 Origin = lineMatchesGroups[3].Value,
             });
