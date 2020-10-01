@@ -7,4 +7,5 @@ public class TranslateItem
     public string Context { get; set; }
     public string Number { get; set; } 
     public string Origin { get; set; }
+    public string Dest { get; set; }
 }

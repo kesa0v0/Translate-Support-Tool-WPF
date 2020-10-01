@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Translate_Support_Tool_WPF_Main
@@ -20,12 +21,20 @@ namespace Translate_Support_Tool_WPF_Main
             FileManager.YamlList items = _fileManager.Yaml(fileContents);
             TextList.ItemsSource = items;
         }
-
+        
+        private void Dest_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            // 현재 정보를 _fileManager.CurrentYamlList에 저장
+            ((TranslateItem) TextList.SelectedItem).Dest = Dest.Text;
+        }
+        
         private void TextList_SelectionChanged(object sender, RoutedEventArgs e) {
             if (TextList.SelectedItem != null)
             {
+                // 선택된 아이템 내용 불러오기
                 Context.Text = (TextList.SelectedItem as TranslateItem)?.Context;
                 Origin.Text = (TextList.SelectedItem as TranslateItem)?.Origin;
+                Dest.Text = (TextList.SelectedItem as TranslateItem)?.Dest;
             }
         }
         
@@ -33,7 +42,7 @@ namespace Translate_Support_Tool_WPF_Main
         {
             if (e.Key == Key.Enter)
             {
-                ;
+                
             }
         }
 
@@ -45,7 +54,7 @@ namespace Translate_Support_Tool_WPF_Main
 
         private void ConfirmTranslate()
         {
-            
+            _fileManager.CurrentYamlList
         }
 
         private void MenuItem_New(object sender, RoutedEventArgs e)
