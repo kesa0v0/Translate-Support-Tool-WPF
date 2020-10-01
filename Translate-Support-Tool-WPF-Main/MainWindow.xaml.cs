@@ -54,7 +54,7 @@ namespace Translate_Support_Tool_WPF_Main
 
         private void ConfirmTranslate()
         {
-            _fileManager.CurrentYamlList
+            // _fileManager.CurrentYamlList;
         }
 
         private void MenuItem_New(object sender, RoutedEventArgs e)
