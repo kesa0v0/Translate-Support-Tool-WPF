@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows;
-using Microsoft.Win32;
 
 namespace Translate_Support_Tool_WPF_Main
 {
@@ -50,74 +47,5 @@ namespace Translate_Support_Tool_WPF_Main
         {
             throw new NotImplementedException();
         }
-    }
-}
-
-public class TranslateItem
-{
-    public Visibility IsVisible { get; set; }
-    public string Comment { get; set; }
-    public string Context { get; set; }
-    public string Number { get; set; } 
-    public string Origin { get; set; }
-}
-
-
-class FileManager
-{
-    public string[] Open()
-    {
-        OpenFileDialog openFileDialog = new OpenFileDialog();
-
-        if (openFileDialog.ShowDialog() == true)
-        {
-            var fileContent = File.ReadAllLines(openFileDialog.FileName);
-            return fileContent;
-        }
-
-        return new string[]{};
-    }
-
-    public YamlList Yaml(string[] rawData)
-    {
-        var result = new YamlList();
-
-        result.Add(new TranslateItem { Context = "context1", Origin = "test1"});
-
-        // TODO: Some kind of get yml text
-        
-        var lineRegex = @"\b(?:\s*|\t*)(\S+)\s*:([0-9]*)\s*""(.*)""";
-        var commentRegex = @"(#.*)";
-        
-        foreach (var line in rawData)
-        {
-            var lineMatches = new Regex(lineRegex).Match(line);
-            var commentMatches = new Regex(commentRegex).Match(line);
-            
-            var lineMatchesGroups = lineMatches.Groups;
-            var comment = commentMatches.Groups;
-
-            var tempVisible = Visibility.Visible;
-            if (lineMatches.Success == false)
-            {
-                tempVisible = Visibility.Hidden;
-            }
-
-            result.Add(new TranslateItem
-            {
-                IsVisible = tempVisible,
-                Comment = comment[0].Value,
-                // Context = lineMatchesGroups[1].Value,
-                Context = tempVisible.ToString(),
-                Number = lineMatchesGroups[2].Value,
-                Origin = lineMatchesGroups[3].Value,
-            });
-        }
-
-        return result;
-    }
-
-    public class YamlList : List<TranslateItem>
-    {
     }
 }
