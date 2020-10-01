@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Translate_Support_Tool_WPF_Main
 {
@@ -42,19 +44,26 @@ namespace Translate_Support_Tool_WPF_Main
         {
             if (e.Key == Key.Enter)
             {
-                
+                ConfirmTranslate();
             }
         }
 
         private void Confirm_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
-
+            ConfirmTranslate();
         }
 
         private void ConfirmTranslate()
         {
-            // _fileManager.CurrentYamlList;
+            // 현재 정보를 _fileManager.CurrentYamlList에 저장
+            ((TranslateItem) TextList.SelectedItem).Dest = Dest.Text;
+            // IsDone을 True로 바꾸기
+            ((TranslateItem) TextList.SelectedItem).IsDone = true;
+            // 현재 아이템의 배경 초록색으로 바꾸기
+            object selectedItem = TextList.SelectedItem;
+            ListBoxItem selectedListBoxItem = TextList.ItemContainerGenerator.ContainerFromItem(selectedItem) as ListBoxItem;
+            selectedListBoxItem.Background = Brushes.Green;
+            
         }
 
         private void MenuItem_New(object sender, RoutedEventArgs e)

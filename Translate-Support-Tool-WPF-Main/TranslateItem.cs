@@ -2,6 +2,7 @@
 
 public class TranslateItem
 {
+    public bool IsDone { get; set; }
     public Visibility IsVisible { get; set; }
     public string Comment { get; set; }
     public string Context { get; set; }
