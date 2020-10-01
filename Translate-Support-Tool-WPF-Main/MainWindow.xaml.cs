@@ -62,7 +62,7 @@ namespace Translate_Support_Tool_WPF_Main
             // 현재 아이템의 배경 초록색으로 바꾸기
             object selectedItem = TextList.SelectedItem;
             ListBoxItem selectedListBoxItem = TextList.ItemContainerGenerator.ContainerFromItem(selectedItem) as ListBoxItem;
-            selectedListBoxItem.Background = Brushes.Green;
+            selectedListBoxItem.Background = Brushes.GreenYellow;
             
         }
 
