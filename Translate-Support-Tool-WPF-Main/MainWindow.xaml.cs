@@ -23,8 +23,8 @@ namespace Translate_Support_Tool_WPF_Main
         private void TextList_SelectionChanged(object sender, RoutedEventArgs e) {
             if (TextList.SelectedItem != null)
             {
-                Context.Content = (TextList.SelectedItem as TranslateItem)?.Context;
-                Origin.Content = (TextList.SelectedItem as TranslateItem)?.Origin;
+                Context.Text = (TextList.SelectedItem as TranslateItem)?.Context;
+                Origin.Text = (TextList.SelectedItem as TranslateItem)?.Origin;
             }
         }
         private void Confirm_OnClick(object sender, RoutedEventArgs e)

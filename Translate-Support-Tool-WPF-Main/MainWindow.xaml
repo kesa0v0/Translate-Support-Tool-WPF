@@ -46,13 +46,19 @@
                     <RowDefinition Height="5*"/>
                 </Grid.RowDefinitions>
                 
-                <Label Name="Context" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Gray"/>
-                <Label Name="Origin" 
+                <TextBlock Name="Context"
+                       Grid.Row="0"
+                       HorizontalAlignment="Stretch" 
+                       VerticalAlignment="Stretch"
+                       Background="Gray" 
+                       />
+                <TextBlock Name="Origin" 
                        Grid.Row="1" 
                        HorizontalAlignment="Stretch" 
                        VerticalAlignment="Stretch"
                        Background="DarkGray"
-                       />
+                       TextWrapping="Wrap"
+                />
                 <TextBox Name="Dest" 
                          Grid.Row="2" 
                          HorizontalAlignment="Stretch" 
