@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Translate_Support_Tool_WPF_Main
 {
@@ -27,13 +28,29 @@ namespace Translate_Support_Tool_WPF_Main
                 Origin.Text = (TextList.SelectedItem as TranslateItem)?.Origin;
             }
         }
+        
+        private void Dest_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ;
+            }
+        }
+
         private void Confirm_OnClick(object sender, RoutedEventArgs e)
         {
+            throw new NotImplementedException();
 
+        }
+
+        private void ConfirmTranslate()
+        {
+            
         }
 
         private void MenuItem_New(object sender, RoutedEventArgs e)
         {
+            throw new NotImplementedException();
 
         }
 

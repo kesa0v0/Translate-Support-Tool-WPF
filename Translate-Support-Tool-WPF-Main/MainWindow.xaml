@@ -51,6 +51,7 @@
                        HorizontalAlignment="Stretch" 
                        VerticalAlignment="Stretch"
                        Background="Gray" 
+                       TextWrapping="Wrap"
                        />
                 <TextBlock Name="Origin" 
                        Grid.Row="1" 
@@ -64,6 +65,8 @@
                          HorizontalAlignment="Stretch" 
                          VerticalAlignment="Stretch" 
                          Background="DimGray"
+                         TextWrapping="Wrap"
+                         KeyDown="Dest_OnKeyDown"
                           />
                 
                 <Button Name="Confirm" Grid.Row="3" HorizontalAlignment="Right" Height="20" Width="80" Content="Confirm" 

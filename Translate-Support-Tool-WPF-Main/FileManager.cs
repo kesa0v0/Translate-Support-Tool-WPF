@@ -6,13 +6,17 @@ using Microsoft.Win32;
 
 class FileManager
 {
+    public string CurrentFile;
+    public YamlList CurrentYamlList;
+    
     public string[] Open()
     {
         OpenFileDialog openFileDialog = new OpenFileDialog();
 
         if (openFileDialog.ShowDialog() == true)
         {
-            var fileContent = File.ReadAllLines(openFileDialog.FileName);
+            CurrentFile = openFileDialog.FileName;
+            var fileContent = File.ReadAllLines(CurrentFile);
             return fileContent;
         }
 
@@ -21,7 +25,7 @@ class FileManager
 
     public YamlList Yaml(string[] rawData)
     {
-        var result = new YamlList();
+        CurrentYamlList = new YamlList();
         
         var lineRegex = @"\b(?:\s*|\t*)(\S+)\s*:([0-9]*)\s*""(.*)""";
         var commentRegex = @"(#.*)";
@@ -40,7 +44,8 @@ class FileManager
                 tempVisible = Visibility.Collapsed;
             }
 
-            result.Add(new TranslateItem
+            
+            CurrentYamlList.Add(new TranslateItem
             {
                 IsVisible = tempVisible,
                 Comment = comment[0].Value,
@@ -50,7 +55,7 @@ class FileManager
             });
         }
 
-        return result;
+        return CurrentYamlList;
     }
 
     public class YamlList : List<TranslateItem>
