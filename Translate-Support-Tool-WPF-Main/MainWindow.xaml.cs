@@ -42,7 +42,7 @@ namespace Translate_Support_Tool_WPF_Main
         
         private void Dest_OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter && TextList.SelectedItem != null)
             {
                 ConfirmTranslate();
             }
@@ -50,7 +50,8 @@ namespace Translate_Support_Tool_WPF_Main
 
         private void Confirm_OnClick(object sender, RoutedEventArgs e)
         {
-            ConfirmTranslate();
+            if (TextList.SelectedItem != null)
+                ConfirmTranslate();
         }
 
         private void ConfirmTranslate()
@@ -61,9 +62,8 @@ namespace Translate_Support_Tool_WPF_Main
             ((TranslateItem) TextList.SelectedItem).IsDone = true;
             // 현재 아이템의 배경 초록색으로 바꾸기
             object selectedItem = TextList.SelectedItem;
-            ListBoxItem selectedListBoxItem = TextList.ItemContainerGenerator.ContainerFromItem(selectedItem) as ListBoxItem;
+            ListBoxItem selectedListBoxItem = TextList.ItemContainerGenerator.ContainerFromItem(selectedItem) as ListBoxItem; 
             selectedListBoxItem.Background = Brushes.GreenYellow;
-            
         }
 
         private void MenuItem_New(object sender, RoutedEventArgs e)
