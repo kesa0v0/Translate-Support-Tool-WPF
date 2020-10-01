@@ -44,9 +44,9 @@ class FileManager
             {
                 IsVisible = tempVisible,
                 Comment = comment[0].Value,
-                Context = lineMatchesGroups[1].Value.Replace("\\n", "&#10;"),
+                Context = lineMatchesGroups[1].Value.Replace("\\n", "\\\\n"),
                 Number = lineMatchesGroups[2].Value,
-                Origin = lineMatchesGroups[3].Value.Replace("\\n", "&#10;")
+                Origin = lineMatchesGroups[3].Value.Replace("\\n", "\\\\n")
             });
         }
 
