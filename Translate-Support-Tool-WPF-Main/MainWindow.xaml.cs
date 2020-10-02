@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,7 +9,7 @@ namespace Translate_Support_Tool_WPF_Main
 {
     public partial class MainWindow
     {
-        private FileManager _fileManager;
+        private readonly FileManager _fileManager;
         public MainWindow()
         {
             InitializeComponent();
@@ -61,10 +60,10 @@ namespace Translate_Support_Tool_WPF_Main
             // IsDone을 True로 바꾸기
             ((TranslateItem) TextList.SelectedItem).IsDone = true;
             // 현재 아이템의 배경 초록색으로 바꾸기
-            object selectedItem = TextList.SelectedItem;
-            ListBoxItem selectedListBoxItem = TextList.ItemContainerGenerator.ContainerFromItem(selectedItem) as ListBoxItem; 
-            selectedListBoxItem.Background = Brushes.GreenYellow;
-            
+            var selectedItem = TextList.SelectedItem;
+            var selectedListBoxItem = TextList.ItemContainerGenerator.ContainerFromItem(selectedItem) as ListBoxItem;
+            if (selectedListBoxItem != null) selectedListBoxItem.Background = Brushes.GreenYellow;
+
             // 다음 아이템으로 넘기기
             // Collapsed 된 아이템 무시하기
             do

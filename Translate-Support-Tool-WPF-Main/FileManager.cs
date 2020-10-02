@@ -38,16 +38,12 @@ class FileManager
             var lineMatchesGroups = lineMatches.Groups;
             var comment = commentMatches.Groups;
 
-            var tempVisible = Visibility.Visible;
-            if (lineMatches.Success == false)
-            {
-                tempVisible = Visibility.Collapsed;
-            }
+            bool tempTarget = lineMatches.Success;
 
-            
+
             CurrentYamlList.Add(new TranslateItem
             {
-                IsVisible = tempVisible,
+                IsTarget = tempTarget,
                 Comment = comment[0].Value,
                 Context = lineMatchesGroups[1].Value,
                 Number = lineMatchesGroups[2].Value,
