@@ -18,8 +18,11 @@
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
                 <MenuItem Header="_New" Click="MenuItem_New" />
+                <Separator />
                 <MenuItem Header="_Open" Click="MenuItem_Open" />
                 <MenuItem Header="_Save" Click="MenuItem_Save" InputGestureText="Ctrl+S"/>
+                <Separator />
+                <MenuItem Header="_Export" Click="MenuItem_Export"/>
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1">

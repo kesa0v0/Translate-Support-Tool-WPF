@@ -1,26 +1,37 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input.StylusPlugIns;
 using Microsoft.Win32;
 
 class FileManager
 {
     public string CurrentFile;
     public YamlList CurrentYamlList;
-    
-    public string[] Open()
+
+    public YamlList New()
     {
-        OpenFileDialog openFileDialog = new OpenFileDialog();
+        var openFileDialog = new OpenFileDialog();
 
         if (openFileDialog.ShowDialog() == true)
         {
             CurrentFile = openFileDialog.FileName;
-            var fileContent = File.ReadAllLines(CurrentFile);
-            return fileContent;
-        }
+            // if txt
+            if (CurrentFile.EndsWith(".txt"))
+            {
+                throw new NotImplementedException();
+            }
 
-        return new string[]{};
+            // if yaml
+            if (CurrentFile.EndsWith(".yml") || CurrentFile.EndsWith(".yaml"))
+            {
+                var fileContent = File.ReadAllLines(CurrentFile);
+                return Yaml(fileContent);
+            }
+        }
+        return new YamlList();
     }
 
     public YamlList Yaml(string[] rawData)
@@ -54,7 +65,32 @@ class FileManager
         return CurrentYamlList;
     }
 
-    public class YamlList : List<TranslateItem>
+    public YamlList Text()
     {
+        return new YamlList();
+    }
+    
+    public class YamlList : List<TranslateItem> { }
+
+    public void Export()
+    {
+        var result = "l_english:";
+        foreach (var yaml in CurrentYamlList)
+        {
+            result += "  ";
+            
+            if (yaml.IsTarget)
+            {
+                result += $"{yaml.Context}:{yaml.Number} \"{yaml.Dest}\" ";
+            }
+            if (yaml.Comment != "")
+            {
+                result += yaml.Comment;
+            }
+            
+            result += "\n";
+        }
+
+        MessageBox.Show(result);
     }
 }

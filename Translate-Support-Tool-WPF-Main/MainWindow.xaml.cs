@@ -9,13 +9,14 @@ namespace Translate_Support_Tool_WPF_Main
 {
     public partial class MainWindow
     {
-        private readonly FileManager _fileManager;
+        private FileManager _fileManager;
         public MainWindow()
         {
             InitializeComponent();
 
             _fileManager = new FileManager();
-
+            
+            // TODO: Remove Test Script
             var file =
                 @"C:\_Storage\Programming\MyProject\WPF\Translate-Support-Tool-WPF\Translate-Support-Tool-WPF-Main\sample\test.yml";
             string[] fileContents = File.ReadAllLines(file);
@@ -77,26 +78,28 @@ namespace Translate_Support_Tool_WPF_Main
                 {
                     break;
                 }
-            } while (((TranslateItem) TextList.SelectedItem).Context == "");
-
-            MessageBox.Show(((TranslateItem) TextList.SelectedItem).Context);
+            } while (((TranslateItem) TextList.SelectedItem).Context == "");    
         }
 
         private void MenuItem_New(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
-
+            var items = _fileManager.New();
+            TextList.ItemsSource = items;
         }
 
         private void MenuItem_Open(object sender, RoutedEventArgs e)
         {
-            FileManager.YamlList items = _fileManager.Yaml(_fileManager.Open());
-            TextList.ItemsSource = items;
+            throw new NotImplementedException();
         }
 
         private void MenuItem_Save(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void MenuItem_Export(object sender, RoutedEventArgs e)
+        {
+            _fileManager.Export();
         }
     }
 }
