@@ -64,10 +64,23 @@ namespace Translate_Support_Tool_WPF_Main
             object selectedItem = TextList.SelectedItem;
             ListBoxItem selectedListBoxItem = TextList.ItemContainerGenerator.ContainerFromItem(selectedItem) as ListBoxItem; 
             selectedListBoxItem.Background = Brushes.GreenYellow;
+            
             // 다음 아이템으로 넘기기
-            // TODO: 마지막 아이템일 때는 무시하기
-            // TODO: Collapsed 된 아이템도 무시하기
-            TextList.SelectedItem = TextList.Items.GetItemAt(TextList.SelectedIndex + 1);
+            // Collapsed 된 아이템 무시하기
+            do
+            {
+                // 마지막 아이템일 때는 무시하기
+                if (TextList.Items.Count - 1 != TextList.SelectedIndex)
+                {
+                    TextList.SelectedItem = TextList.Items.GetItemAt(TextList.SelectedIndex + 1);
+                }
+                else
+                {
+                    break;
+                }
+            } while (((TranslateItem) TextList.SelectedItem).Context == "");
+
+            MessageBox.Show(((TranslateItem) TextList.SelectedItem).Context);
         }
 
         private void MenuItem_New(object sender, RoutedEventArgs e)
