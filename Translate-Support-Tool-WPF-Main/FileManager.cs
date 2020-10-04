@@ -85,12 +85,14 @@ class FileManager
             }
             if (yaml.Comment != "")
             {
-                result += yaml.Comment;
+                result += yaml.Comment;    
             }
             
             result += "\n";
         }
 
-        MessageBox.Show(result);
+        var save = new SaveFileDialog {Filter = "Yaml (*.yml; *.yaml)|*.yml; *.yaml"};
+        if (save.ShowDialog() == true)
+            File.WriteAllText(save.FileName, result);
     }
 }
