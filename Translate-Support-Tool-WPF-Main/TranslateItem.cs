@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 
+[Serializable]
 public class TranslateItem
 {
     public bool IsDone { get; set; }

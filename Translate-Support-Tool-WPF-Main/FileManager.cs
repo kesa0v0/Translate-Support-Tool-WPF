@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Input.StylusPlugIns;
 using Microsoft.Win32;
 
-class FileManager
+[Serializable]
+public class FileManager
 {
     public string CurrentFile;
     public YamlList CurrentYamlList;
+    public string CurrentWorkingFile = "";
 
     public YamlList New()
     {
@@ -70,6 +70,7 @@ class FileManager
         return new YamlList();
     }
     
+    [Serializable]
     public class YamlList : List<TranslateItem> { }
 
     public void Export()

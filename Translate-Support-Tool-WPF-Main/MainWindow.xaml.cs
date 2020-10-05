@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Xml.Serialization;
+using Microsoft.Win32;
 
 namespace Translate_Support_Tool_WPF_Main
 {
@@ -94,9 +99,36 @@ namespace Translate_Support_Tool_WPF_Main
 
         private void MenuItem_Save(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (_fileManager.CurrentWorkingFile != "") // 
+            {
+                var outFile = File.Create(_fileManager.CurrentWorkingFile);
+                var formatter = new XmlSerializer(_fileManager.GetType());
+                formatter.Serialize(outFile, _fileManager);
+                outFile.Close();
+            }
+            else
+            {
+                SaveToNewFile();
+            }
+        }
+        
+        private void MenuItem_Save_As(object sender, RoutedEventArgs e)
+        {
+            SaveToNewFile();
         }
 
+        private void SaveToNewFile()
+        {
+            var save = new SaveFileDialog {Filter = "XML (*.xml)|*.xml"};
+            if (save.ShowDialog() != true) return;
+            
+            _fileManager.CurrentWorkingFile = save.FileName;
+            
+            var outFile = File.Create(_fileManager.CurrentWorkingFile);
+            var formatter = new XmlSerializer(_fileManager.GetType());
+            formatter.Serialize(outFile, _fileManager);
+            outFile.Close();
+        }
         private void MenuItem_Export(object sender, RoutedEventArgs e)
         {
             _fileManager.Export();
