@@ -17,12 +17,6 @@ namespace Translate_Support_Tool_WPF_Main
 
             _fileManager = new FileManager();
             
-            // TODO: Remove Test Script
-            // var file =
-            //     @"C:\_Storage\Programming\MyProject\WPF\Translate-Support-Tool-WPF\Translate-Support-Tool-WPF-Main\sample\test.yml";
-            // string[] fileContents = File.ReadAllLines(file);
-            // FileManager.YamlList items = _fileManager.Yaml(fileContents);
-            // TextList.ItemsSource = items
         }
         
         private void Dest_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -31,16 +25,19 @@ namespace Translate_Support_Tool_WPF_Main
             ((TranslateItem) TextList.SelectedItem).Dest = Dest.Text;
         }
         
-        private void TextList_SelectionChanged(object sender, RoutedEventArgs e) {
-            if (TextList.SelectedItem != null)
-            {
-                // 선택된 아이템 내용 불러오기
-                Context.Text = (TextList.SelectedItem as TranslateItem)?.Context;
-                Origin.Text = (TextList.SelectedItem as TranslateItem)?.Origin;
-                Dest.Text = (TextList.SelectedItem as TranslateItem)?.Dest;
-            }
+        private void TextList_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (TextList.SelectedItem == null) return;
+            // 선택된 아이템 내용 불러오기
+            Context.Text = ((TranslateItem) TextList.SelectedItem).Context;
+            Origin.Text = ((TranslateItem) TextList.SelectedItem).Origin;
+            Dest.Text = ((TranslateItem) TextList.SelectedItem).Dest;
         }
         
+
+
+        #region ConfirmTranslate
+
         private void Dest_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter && TextList.SelectedItem != null)
@@ -82,6 +79,10 @@ namespace Translate_Support_Tool_WPF_Main
             } while (((TranslateItem) TextList.SelectedItem).Context == "");    
         }
 
+        #endregion
+
+        #region Menus
+        
         private void MenuItem_New(object sender, RoutedEventArgs e)
         {
             var items = _fileManager.New();
@@ -125,7 +126,7 @@ namespace Translate_Support_Tool_WPF_Main
         {
             SaveToNewFile();
         }
-
+        
         private void SaveToNewFile()
         {
             var save = new SaveFileDialog {Filter = "XML (*.xml)|*.xml"};
@@ -138,9 +139,13 @@ namespace Translate_Support_Tool_WPF_Main
             formatter.Serialize(outFile, _fileManager);
             outFile.Close();
         }
+        
         private void MenuItem_Export(object sender, RoutedEventArgs e)
         {
             _fileManager.Export();
         }
+        
+
+        #endregion
     }
 }
