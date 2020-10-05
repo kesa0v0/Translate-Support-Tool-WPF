@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,11 +18,11 @@ namespace Translate_Support_Tool_WPF_Main
             _fileManager = new FileManager();
             
             // TODO: Remove Test Script
-            var file =
-                @"C:\_Storage\Programming\MyProject\WPF\Translate-Support-Tool-WPF\Translate-Support-Tool-WPF-Main\sample\test.yml";
-            string[] fileContents = File.ReadAllLines(file);
-            FileManager.YamlList items = _fileManager.Yaml(fileContents);
-            TextList.ItemsSource = items;
+            // var file =
+            //     @"C:\_Storage\Programming\MyProject\WPF\Translate-Support-Tool-WPF\Translate-Support-Tool-WPF-Main\sample\test.yml";
+            // string[] fileContents = File.ReadAllLines(file);
+            // FileManager.YamlList items = _fileManager.Yaml(fileContents);
+            // TextList.ItemsSource = items
         }
         
         private void Dest_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -94,12 +90,25 @@ namespace Translate_Support_Tool_WPF_Main
 
         private void MenuItem_Open(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var open = new OpenFileDialog();
+            if (open.ShowDialog() != true) return ;
+            
+            var formatter = new XmlSerializer(typeof(FileManager));
+            var file = new FileStream(open.FileName, FileMode.Open);
+            var buffer = new byte[file.Length];
+            file.Read(buffer, 0, (int)file.Length);
+            var stream = new MemoryStream(buffer);
+            _fileManager = (FileManager) formatter.Deserialize(stream);
+            file.Close();
+            // Xml로 저장된 FileManager class 여는 코드...?
+
+            TextList.ItemsSource = _fileManager.CurrentYamlList;
+            // 불러온 FileManager 리스트에 넣어주는 코드
         }
 
         private void MenuItem_Save(object sender, RoutedEventArgs e)
         {
-            if (_fileManager.CurrentWorkingFile != "") // 
+            if (_fileManager.CurrentWorkingFile != "") // 이거 필요 있나 모르것네 ㅋㅋ 
             {
                 var outFile = File.Create(_fileManager.CurrentWorkingFile);
                 var formatter = new XmlSerializer(_fileManager.GetType());
