@@ -80,6 +80,20 @@
                          TextChanged="Dest_OnTextChanged"
                           />
                 
+                <TextBlock 
+                    Grid.Row="4"
+                    Name="WordDictionaryRecommend"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="Gray"
+                    TextWrapping="Wrap"/>
+                
+                <TextBlock Grid.Row="5"
+                           Name="MachineTranslateRecommend"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch"
+                           Background="DarkGray"
+                           TextWrapping="Wrap"/>
             </Grid>
         </Grid>
     </Grid>
