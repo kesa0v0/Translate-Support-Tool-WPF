@@ -24,6 +24,8 @@
                 <MenuItem Header="_Save As" Click="MenuItem_Save_As" InputGestureText="Ctrl+Shift+S"/>
                 <Separator />
                 <MenuItem Header="_Export" Click="MenuItem_Export"/>
+                <Separator />
+                <MenuItem Header="_Setting" />
             </MenuItem>
             <MenuItem Header="_Edit">
                       <MenuItem Header="_Undo" Command="ApplicationCommands.Undo" />
