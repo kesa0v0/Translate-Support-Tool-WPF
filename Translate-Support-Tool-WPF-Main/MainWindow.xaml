@@ -21,9 +21,13 @@
                 <Separator />
                 <MenuItem Header="_Open" Click="MenuItem_Open" />
                 <MenuItem Header="_Save" Click="MenuItem_Save" InputGestureText="Ctrl+S"/>
-                <MenuItem Header="_Save_As" Click="MenuItem_Save_As" InputGestureText="Ctrl+Shift+S"/>
+                <MenuItem Header="_Save As" Click="MenuItem_Save_As" InputGestureText="Ctrl+Shift+S"/>
                 <Separator />
                 <MenuItem Header="_Export" Click="MenuItem_Export"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                      <MenuItem Header="_Undo" Command="ApplicationCommands.Undo" />
+                      <MenuItem Header="_Redo" Command="ApplicationCommands.Redo" />
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1">
