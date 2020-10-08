@@ -10,19 +10,31 @@ namespace Translate_Support_Tool_WPF_Main
 {
     public partial class MainWindow
     {
+        private static readonly RoutedCommand CmdCtrlS = new RoutedCommand();
+        private static readonly RoutedCommand CmdCtrlShiftS = new RoutedCommand();
+        
         private FileManager _fileManager;
         public MainWindow()
         {
             InitializeComponent();
 
             _fileManager = new FileManager();
+
+            CmdCtrlS.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control));
+            CmdCtrlShiftS.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control | ModifierKeys.Shift));
+            CommandBindings.Add(new CommandBinding(CmdCtrlS, MenuItem_Save));
+            CommandBindings.Add(new CommandBinding(CmdCtrlShiftS, MenuItem_Save_As));
+            // 저장 단축키들
+            
             
         }
         
         private void Dest_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            // 현재 정보를 _fileManager.CurrentYamlList에 저장
+            if (TextList.SelectedItem == null) return; 
+            // 선택되지 않으면 넘기기
             ((TranslateItem) TextList.SelectedItem).Dest = Dest.Text;
+            // 현재 정보를 _fileManager.CurrentYamlList에 저장
         }
         
         private void TextList_SelectionChanged(object sender, RoutedEventArgs e)
@@ -92,7 +104,12 @@ namespace Translate_Support_Tool_WPF_Main
         private void MenuItem_Open(object sender, RoutedEventArgs e)
         {
             var open = new OpenFileDialog();
-            if (open.ShowDialog() != true) return ;
+            if (open.ShowDialog() != true) return ;  // 파일 열면
+            if (!open.FileName.EndsWith(".xml")) // xml 파일이 아니면
+            {
+                MessageBox.Show("xml 파일을 지정해 주세요");
+                return ;
+            }
             
             var formatter = new XmlSerializer(typeof(FileManager));
             var file = new FileStream(open.FileName, FileMode.Open);
