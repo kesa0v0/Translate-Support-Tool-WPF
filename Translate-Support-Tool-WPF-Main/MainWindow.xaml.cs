@@ -39,14 +39,30 @@ namespace Translate_Support_Tool_WPF_Main
         
         private void TextList_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            if (TextList.SelectedItem == null) return;
-            // 선택된 아이템 내용 불러오기
-            Context.Text = ((TranslateItem) TextList.SelectedItem).Context;
-            Origin.Text = ((TranslateItem) TextList.SelectedItem).Origin;
-            Dest.Text = ((TranslateItem) TextList.SelectedItem).Dest;
+            TextUpdate();
         }
-        
 
+        private void TextUpdate()
+        {
+            if (TextList.SelectedItem == null)
+            {
+                Context.Text = "";
+                Origin.Text = "";
+                Dest.Text = "";
+                
+                
+            }
+            else
+            {
+                // 선택된 아이템 내용 불러오기
+                Context.Text = ((TranslateItem) TextList.SelectedItem).Context;
+                Origin.Text = ((TranslateItem) TextList.SelectedItem).Origin;
+                Dest.Text = ((TranslateItem) TextList.SelectedItem).Dest;
+            
+                // TODO: Update WordDictionary and MachineTranslateSupport
+                
+            }
+        }
 
         #region ConfirmTranslate
 
@@ -122,6 +138,8 @@ namespace Translate_Support_Tool_WPF_Main
 
             TextList.ItemsSource = _fileManager.CurrentYamlList;
             // 불러온 FileManager 리스트에 넣어주는 코드
+            TextUpdate();
+            // 텍스트 업데이트
         }
 
         private void MenuItem_Save(object sender, RoutedEventArgs e)
