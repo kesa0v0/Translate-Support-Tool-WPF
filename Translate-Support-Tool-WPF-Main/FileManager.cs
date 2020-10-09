@@ -12,7 +12,7 @@ namespace Translate_Support_Tool_WPF_Main
     public class FileManager
     {
         public string CurrentFile;
-        public YamlList CurrentYamlList;
+        public YamlList CurrentYamlList = new YamlList();
         public string CurrentWorkingFile = "";
 
         public YamlList New()
@@ -82,6 +82,8 @@ namespace Translate_Support_Tool_WPF_Main
 
         public void Export()
         {
+            if (CurrentYamlList.Count <= 0) return; // YamlList 비었을 때 무시하기
+
             var result = "l_english:";
             foreach (var yaml in CurrentYamlList)
             {
