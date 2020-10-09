@@ -111,7 +111,7 @@ namespace Translate_Support_Tool_WPF_Main
 
         #region Menus
         
-        private void MenuItem_New(object sender, RoutedEventArgs e)
+        private void MenuItem_Import(object sender, RoutedEventArgs e)
         {
             var items = _fileManager.New();
             TextList.ItemsSource = items;

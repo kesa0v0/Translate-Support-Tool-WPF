@@ -17,13 +17,12 @@
         
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
-                <MenuItem Header="_New" Click="MenuItem_New" />
+                <MenuItem Header="_Import" Click="MenuItem_Import" />
+                <MenuItem Header="_Export" Click="MenuItem_Export"/>
                 <Separator />
                 <MenuItem Header="_Open" Click="MenuItem_Open" />
                 <MenuItem Header="_Save" Click="MenuItem_Save" InputGestureText="Ctrl+S"/>
                 <MenuItem Header="_Save As" Click="MenuItem_Save_As" InputGestureText="Ctrl+Shift+S"/>
-                <Separator />
-                <MenuItem Header="_Export" Click="MenuItem_Export"/>
                 <Separator />
                 <MenuItem Header="_Setting" />
             </MenuItem>
