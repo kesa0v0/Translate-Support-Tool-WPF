@@ -14,7 +14,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
                 <MenuItem Header="_Import" Click="MenuItem_Import" />
@@ -34,70 +34,81 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
-            
+
             <ListBox Name="TextList" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                     SelectionMode="Single" SelectionChanged="TextList_SelectionChanged" >
+                     SelectionMode="Single" SelectionChanged="TextList_SelectionChanged"
+                     Background="LightGray" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Path = Context}"
                                    Visibility="{Binding Path=IsTarget,
                                    Converter={StaticResource BooleanToVisibilityConverter}}"
-                                   />
+                        />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <GridSplitter Grid.Column="1" Width="1"
+                          VerticalAlignment="Stretch" 
+                          HorizontalAlignment="Center"/>
+
+            <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="5*"/>
-                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="5*"/>
                 </Grid.RowDefinitions>
-                
+
                 <TextBlock Name="Context"
                        Grid.Row="0"
-                       HorizontalAlignment="Stretch" 
+                       HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch"
-                       Background="Gray" 
                        TextWrapping="Wrap"
+                       Foreground="Gray"
                        />
-                <TextBlock Name="Origin" 
-                       Grid.Row="1" 
-                       HorizontalAlignment="Stretch" 
-                       VerticalAlignment="Stretch"
-                       Background="DarkGray"
-                       TextWrapping="Wrap"
+                <Border Grid.Row="1" BorderThickness="0, 0, 0, 0.25" BorderBrush="DimGray" />
+                <TextBlock Name="Origin"
+                           Grid.Row="2"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch"
+                           TextWrapping="Wrap"
                 />
-                <Button Name="Confirm" Grid.Row="2" HorizontalAlignment="Right" Height="20" Width="80" Content="Confirm" 
+                <Button Name="Confirm" Grid.Row="3" HorizontalAlignment="Right" Height="20" Width="80" Content="Confirm"
                         Click="Confirm_OnClick"/>
-                <TextBox Name="Dest" 
-                         Grid.Row="3" 
-                         HorizontalAlignment="Stretch" 
-                         VerticalAlignment="Stretch" 
-                         Background="DimGray"
+                <Border Grid.Row="4" BorderThickness="0, 0, 0, 0.25" BorderBrush="DimGray" />
+                <TextBox Name="Dest"
+                         Grid.Row="5"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch"
                          TextWrapping="Wrap"
+                         BorderThickness="0,0,0,0"
                          KeyDown="Dest_OnKeyDown"
                          TextChanged="Dest_OnTextChanged"
-                          />
-                
-                <TextBlock 
-                    Grid.Row="4"
+                />
+
+                <Border Grid.Row="6" BorderThickness="0, 0, 0, 0.25" BorderBrush="DimGray" />
+                <TextBlock
+                    Grid.Row="7"
                     Name="WordDictionaryRecommend"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Background="Gray"
                     TextWrapping="Wrap"/>
-                
-                <TextBlock Grid.Row="5"
+
+                <Border Grid.Row="8" BorderThickness="0, 0, 0, 0.25" BorderBrush="DimGray" />
+                <TextBlock Grid.Row="9"
                            Name="MachineTranslateRecommend"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Stretch"
-                           Background="DarkGray"
                            TextWrapping="Wrap"/>
             </Grid>
         </Grid>
