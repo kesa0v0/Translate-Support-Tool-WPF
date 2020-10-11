@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Translate_Support_Tool_WPF_Main"
+        xmlns:translateSupportToolWpfMain="clr-namespace:Translate_Support_Tool_WPF_Main"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
     <Window.Resources>
@@ -48,11 +48,10 @@
                      SelectionMode="Single" SelectionChanged="TextList_SelectionChanged"
                      Background="LightGray" >
                 <ListBox.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate DataType="translateSupportToolWpfMain:TranslateItem">
                         <TextBlock Text="{Binding Path = Context}"
                                    Visibility="{Binding Path=IsTarget,
-                                   Converter={StaticResource BooleanToVisibilityConverter}}"
-                        />
+                                   Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
