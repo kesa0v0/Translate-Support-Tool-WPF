@@ -28,7 +28,7 @@ namespace Translate_Support_Tool_WPF_Main
             
             
         }
-        
+
         private void Dest_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             if (TextList.SelectedItem == null) return; 
@@ -120,8 +120,8 @@ namespace Translate_Support_Tool_WPF_Main
         private void MenuItem_Open(object sender, RoutedEventArgs e)
         {
             var open = new OpenFileDialog();
-            if (open.ShowDialog() != true) return ;  // 파일 열면
-            if (!open.FileName.EndsWith(".xml")) // xml 파일이 아니면
+            if (open.ShowDialog() != true) return ;  // 파일을 안열었으면 무시
+            if (!open.FileName.EndsWith(".xml")) // xml 파일 아니면 무시
             {
                 MessageBox.Show("xml 파일을 지정해 주세요");
                 return ;
@@ -140,12 +140,17 @@ namespace Translate_Support_Tool_WPF_Main
             // 불러온 FileManager 리스트에 넣어주는 코드
             TextUpdate();
             // 텍스트 업데이트
+            // TODO: IsDone도 업데이트 해야함
+            
+            FilePathTextBlock.Text = _fileManager.CurrentWorkingFile;
+            // FilePathTextBlock에 파일경로 표시
         }
 
         private void MenuItem_Save(object sender, RoutedEventArgs e)
         {
-            if (_fileManager.CurrentWorkingFile != "") // 이거 필요 있나 모르것네 ㅋㅋ 
+            if (_fileManager.CurrentWorkingFile != "")
             {
+                // 현재 작업중인 파일이 있으면 그곳에 저장
                 var outFile = File.Create(_fileManager.CurrentWorkingFile);
                 var formatter = new XmlSerializer(_fileManager.GetType());
                 formatter.Serialize(outFile, _fileManager);
@@ -153,6 +158,7 @@ namespace Translate_Support_Tool_WPF_Main
             }
             else
             {
+                // 없으면 새로 저장
                 SaveToNewFile();
             }
         }
@@ -173,6 +179,9 @@ namespace Translate_Support_Tool_WPF_Main
             var formatter = new XmlSerializer(_fileManager.GetType());
             formatter.Serialize(outFile, _fileManager);
             outFile.Close();
+
+            FilePathTextBlock.Text = _fileManager.CurrentWorkingFile; 
+            // FilePathTextBlock에 파일경로 표시
         }
         
         private void MenuItem_Export(object sender, RoutedEventArgs e)

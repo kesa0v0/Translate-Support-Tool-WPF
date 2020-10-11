@@ -12,6 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -31,7 +32,12 @@
                       <MenuItem Header="_Redo" Command="ApplicationCommands.Redo" />
             </MenuItem>
         </Menu>
-        <Grid Grid.Row="1">
+        
+        <TextBlock Name="FilePathTextBlock" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                   TextWrapping="NoWrap" Padding="0, 2, 0 ,2" Margin="0 ,0, 0, 1"
+                   Background="LightGray" />
+        
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -75,13 +81,15 @@
                        VerticalAlignment="Stretch"
                        TextWrapping="Wrap"
                        Foreground="Gray"
-                       />
+                       Padding="2, 2, 2, 4"
+                />
                 <Border Grid.Row="1" BorderThickness="0, 0, 0, 0.25" BorderBrush="DimGray" />
                 <TextBlock Name="Origin"
                            Grid.Row="2"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Stretch"
                            TextWrapping="Wrap"
+                           Padding="4, 4, 4, 4"
                 />
                 <Button Name="Save" Grid.Row="3" HorizontalAlignment="Right" Height="30" Width="100" Content="Confirm"
                         Margin="0, 0, 5, 5"
