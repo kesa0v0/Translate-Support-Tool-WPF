@@ -15,7 +15,7 @@ namespace Translate_Support_Tool_WPF_Main
 
         public YamlList New()
         {
-            var openFileDialog = new OpenFileDialog();
+            var openFileDialog = new OpenFileDialog{Filter = "YAML (*.yml)|*.yml"};
 
             if (openFileDialog.ShowDialog() == true)
             {
