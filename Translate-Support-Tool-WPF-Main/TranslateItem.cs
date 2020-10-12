@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Windows;
-
 
 namespace Translate_Support_Tool_WPF_Main
 {

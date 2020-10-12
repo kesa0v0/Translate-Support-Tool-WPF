@@ -4,16 +4,14 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
 
-
 namespace Translate_Support_Tool_WPF_Main
 {
-
     [Serializable]
     public class FileManager
     {
         public string CurrentFile;
-        public YamlList CurrentYamlList = new YamlList();
         public string CurrentWorkingFile = "";
+        public YamlList CurrentYamlList = new YamlList();
 
         public YamlList New()
         {
@@ -23,10 +21,7 @@ namespace Translate_Support_Tool_WPF_Main
             {
                 CurrentFile = openFileDialog.FileName;
                 // if txt
-                if (CurrentFile.EndsWith(".txt"))
-                {
-                    throw new NotImplementedException();
-                }
+                if (CurrentFile.EndsWith(".txt")) throw new NotImplementedException();
 
                 // if yaml
                 if (CurrentFile.EndsWith(".yml") || CurrentFile.EndsWith(".yaml"))
@@ -54,7 +49,7 @@ namespace Translate_Support_Tool_WPF_Main
                 var lineMatchesGroups = lineMatches.Groups;
                 var comment = commentMatches.Groups;
 
-                bool tempTarget = lineMatches.Success;
+                var tempTarget = lineMatches.Success;
 
 
                 CurrentYamlList.Add(new TranslateItem
@@ -73,11 +68,6 @@ namespace Translate_Support_Tool_WPF_Main
         public YamlList Text()
         {
             return new YamlList();
-        }
-
-        [Serializable]
-        public class YamlList : List<TranslateItem>
-        {
         }
 
         public void Export()
@@ -103,6 +93,11 @@ namespace Translate_Support_Tool_WPF_Main
             var save = new SaveFileDialog {Filter = "Yaml (*.yml; *.yaml)|*.yml; *.yaml"};
             if (save.ShowDialog() == true)
                 File.WriteAllText(save.FileName, result);
+        }
+
+        [Serializable]
+        public class YamlList : List<TranslateItem>
+        {
         }
     }
 }
