@@ -91,13 +91,11 @@ namespace Translate_Support_Tool_WPF_Main
 
                 if (yaml.IsTarget)
                 {
-                    result += $"{yaml.Context}:{yaml.Number} \"{yaml.Dest}\" ";
+                    if (yaml.Dest == null) result += $"{yaml.Context}:{yaml.Number} \"{yaml.Origin}\" ";
+                    else result += $"{yaml.Context}:{yaml.Number} \"{yaml.Dest}\" ";
                 }
 
-                if (yaml.Comment != "")
-                {
-                    result += yaml.Comment;
-                }
+                if (yaml.Comment != "") result += yaml.Comment;
 
                 result += "\n";
             }
