@@ -119,14 +119,9 @@ namespace Translate_Support_Tool_WPF_Main
 
         private void MenuItem_Open(object sender, RoutedEventArgs e)
         {
-            var open = new OpenFileDialog();
-            if (open.ShowDialog() != true) return ;  // 파일을 안열었으면 무시
-            if (!open.FileName.EndsWith(".xml")) // xml 파일 아니면 무시
-            {
-                MessageBox.Show("xml 파일을 지정해 주세요");
-                return ;
-            }
-            
+            var open = new OpenFileDialog {Filter = "XML (*.xml)|*.xml"};
+            if (open.ShowDialog() != true) return; // 파일을 안열었으면 무시
+
             var formatter = new XmlSerializer(typeof(FileManager));
             var file = new FileStream(open.FileName, FileMode.Open);
             var buffer = new byte[file.Length];
