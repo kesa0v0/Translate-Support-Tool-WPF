@@ -8,6 +8,7 @@
         Title="MainWindow" Height="720" Width="1280">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        < x:Key="IsTranslatedConverter" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -68,15 +69,18 @@
                                     Canvas.Left="0"
                                     Canvas.Top="0" />
                             </Canvas>
-                            
-                        <StackPanel Orientation="Horizontal">
-                            <!-- confirm 됬는지 확인하는 체크박스 -->
-                            <CheckBox IsEnabled="False" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="True"
-                                      Style=""/>
                             <!-- 라벨들 넣을 세로축 -->
                             <StackPanel Orientation="Vertical">
-                                <Label>테스트</Label>
-                                <Label>에용</Label>
+                                <Label>
+                                    <Label.Content>
+                                        <MultiBinding Converter="{StaticResource IsTranslatedConverter}">
+                                            <Binding Path="Origin" />
+                                            <Binding Path="Dest" />
+                                        </MultiBinding>
+                                    </Label.Content>
+                                </Label>
+                                <Label Content="{Binding Path = Context}"
+                                       Foreground="Gray" />
 
                             </StackPanel>
                         </StackPanel>
