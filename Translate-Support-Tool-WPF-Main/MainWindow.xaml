@@ -8,9 +8,6 @@
         Title="MainWindow" Height="720" Width="1280">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <Style x:Key="IsConfirmedCheckBox" TargetType="CheckBox">
-            
-        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -57,6 +54,21 @@
                         <!--            Visibility="{Binding Path=IsTarget, -->
                         <!--            Converter={StaticResource BooleanToVisibilityConverter}}" /> -->
                         <!-- 1개 아이템 가로축 -->
+                        <StackPanel Orientation="Horizontal" 
+                                    Visibility="{Binding Path=IsTarget,
+                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <!-- confirm 됬는지 확인하는 이미지 -->
+                            <Canvas VerticalAlignment="Center" HorizontalAlignment="Center" Width="10" Height="10"
+                                    Margin="2, 0, 5, 0">
+                                <Rectangle
+                                    Width="10"
+                                    Height="10"
+                                    StrokeThickness="3"
+                                    Stroke="Green"
+                                    Canvas.Left="0"
+                                    Canvas.Top="0" />
+                            </Canvas>
+                            
                         <StackPanel Orientation="Horizontal">
                             <!-- confirm 됬는지 확인하는 체크박스 -->
                             <CheckBox IsEnabled="False" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="True"
