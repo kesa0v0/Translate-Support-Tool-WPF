@@ -12,8 +12,9 @@ namespace Translate_Support_Tool_WPF_Main
     {
         private static readonly RoutedCommand CmdCtrlS = new RoutedCommand();
         private static readonly RoutedCommand CmdCtrlShiftS = new RoutedCommand();
-        
+
         private FileManager _fileManager;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -25,18 +26,16 @@ namespace Translate_Support_Tool_WPF_Main
             CommandBindings.Add(new CommandBinding(CmdCtrlS, MenuItem_Save));
             CommandBindings.Add(new CommandBinding(CmdCtrlShiftS, MenuItem_Save_As));
             // 저장 단축키들
-            
-            
         }
 
         private void Dest_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (TextList.SelectedItem == null) return; 
+            if (TextList.SelectedItem == null) return;
             // 선택되지 않으면 넘기기
             ((TranslateItem) TextList.SelectedItem).Dest = Dest.Text;
             // 현재 정보를 _fileManager.CurrentYamlList에 저장
         }
-        
+
         private void TextList_SelectionChanged(object sender, RoutedEventArgs e)
         {
             TextUpdate();
@@ -49,8 +48,6 @@ namespace Translate_Support_Tool_WPF_Main
                 Context.Text = "";
                 Origin.Text = "";
                 Dest.Text = "";
-                
-                
             }
             else
             {
@@ -58,9 +55,8 @@ namespace Translate_Support_Tool_WPF_Main
                 Context.Text = ((TranslateItem) TextList.SelectedItem).Context;
                 Origin.Text = ((TranslateItem) TextList.SelectedItem).Origin;
                 Dest.Text = ((TranslateItem) TextList.SelectedItem).Dest;
-            
+
                 // TODO: Update WordDictionary and MachineTranslateSupport
-                
             }
         }
 
@@ -68,10 +64,7 @@ namespace Translate_Support_Tool_WPF_Main
 
         private void Dest_OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter && TextList.SelectedItem != null)
-            {
-                ConfirmTranslate();
-            }
+            if (e.Key == Key.Enter && TextList.SelectedItem != null) ConfirmTranslate();
         }
 
         private void Confirm_OnClick(object sender, RoutedEventArgs e)
@@ -97,40 +90,36 @@ namespace Translate_Support_Tool_WPF_Main
             {
                 // 마지막 아이템일 때는 무시하기
                 if (TextList.Items.Count - 1 != TextList.SelectedIndex)
-                {
                     TextList.SelectedItem = TextList.Items.GetItemAt(TextList.SelectedIndex + 1);
-                }
                 else
-                {
                     break;
-                }
-            } while (((TranslateItem) TextList.SelectedItem).Context == "");    
+            } while (((TranslateItem) TextList.SelectedItem).Context == "");
         }
 
         #endregion
 
         #region Menus
-        
+
         private void MenuItem_Import(object sender, RoutedEventArgs e)
         {
             var items = _fileManager.New();
             TextList.ItemsSource = items;
         }
 
+        private void MenuItem_Export(object sender, RoutedEventArgs e)
+        {
+            _fileManager.Export();
+        }
+
         private void MenuItem_Open(object sender, RoutedEventArgs e)
         {
-            var open = new OpenFileDialog();
-            if (open.ShowDialog() != true) return ;  // 파일을 안열었으면 무시
-            if (!open.FileName.EndsWith(".xml")) // xml 파일 아니면 무시
-            {
-                MessageBox.Show("xml 파일을 지정해 주세요");
-                return ;
-            }
-            
+            var open = new OpenFileDialog {Filter = "XML (*.xml)|*.xml"};
+            if (open.ShowDialog() != true) return; // 파일을 안열었으면 무시
+
             var formatter = new XmlSerializer(typeof(FileManager));
             var file = new FileStream(open.FileName, FileMode.Open);
             var buffer = new byte[file.Length];
-            file.Read(buffer, 0, (int)file.Length);
+            file.Read(buffer, 0, (int) file.Length);
             var stream = new MemoryStream(buffer);
             _fileManager = (FileManager) formatter.Deserialize(stream);
             file.Close();
@@ -141,7 +130,7 @@ namespace Translate_Support_Tool_WPF_Main
             TextUpdate();
             // 텍스트 업데이트
             // TODO: IsDone도 업데이트 해야함
-            
+
             FilePathTextBlock.Text = _fileManager.CurrentWorkingFile;
             // FilePathTextBlock에 파일경로 표시
         }
@@ -162,33 +151,27 @@ namespace Translate_Support_Tool_WPF_Main
                 SaveToNewFile();
             }
         }
-        
+
         private void MenuItem_Save_As(object sender, RoutedEventArgs e)
         {
             SaveToNewFile();
         }
-        
+
         private void SaveToNewFile()
         {
             var save = new SaveFileDialog {Filter = "XML (*.xml)|*.xml"};
             if (save.ShowDialog() != true) return;
-            
+
             _fileManager.CurrentWorkingFile = save.FileName;
-            
+
             var outFile = File.Create(_fileManager.CurrentWorkingFile);
             var formatter = new XmlSerializer(_fileManager.GetType());
             formatter.Serialize(outFile, _fileManager);
             outFile.Close();
 
-            FilePathTextBlock.Text = _fileManager.CurrentWorkingFile; 
+            FilePathTextBlock.Text = _fileManager.CurrentWorkingFile;
             // FilePathTextBlock에 파일경로 표시
         }
-        
-        private void MenuItem_Export(object sender, RoutedEventArgs e)
-        {
-            _fileManager.Export();
-        }
-        
 
         #endregion
     }

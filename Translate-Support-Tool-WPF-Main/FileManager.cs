@@ -4,29 +4,24 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
 
-
 namespace Translate_Support_Tool_WPF_Main
 {
-
     [Serializable]
     public class FileManager
     {
         public string CurrentFile;
-        public YamlList CurrentYamlList = new YamlList();
         public string CurrentWorkingFile = "";
+        public YamlList CurrentYamlList = new YamlList();
 
         public YamlList New()
         {
-            var openFileDialog = new OpenFileDialog();
+            var openFileDialog = new OpenFileDialog{Filter = "YAML (*.yml)|*.yml"};
 
             if (openFileDialog.ShowDialog() == true)
             {
                 CurrentFile = openFileDialog.FileName;
                 // if txt
-                if (CurrentFile.EndsWith(".txt"))
-                {
-                    throw new NotImplementedException();
-                }
+                if (CurrentFile.EndsWith(".txt")) throw new NotImplementedException();
 
                 // if yaml
                 if (CurrentFile.EndsWith(".yml") || CurrentFile.EndsWith(".yaml"))
@@ -54,7 +49,7 @@ namespace Translate_Support_Tool_WPF_Main
                 var lineMatchesGroups = lineMatches.Groups;
                 var comment = commentMatches.Groups;
 
-                bool tempTarget = lineMatches.Success;
+                var tempTarget = lineMatches.Success;
 
 
                 CurrentYamlList.Add(new TranslateItem
@@ -75,11 +70,6 @@ namespace Translate_Support_Tool_WPF_Main
             return new YamlList();
         }
 
-        [Serializable]
-        public class YamlList : List<TranslateItem>
-        {
-        }
-
         public void Export()
         {
             if (CurrentYamlList.Count <= 0) return; // YamlList 비었을 때 무시하기
@@ -91,13 +81,11 @@ namespace Translate_Support_Tool_WPF_Main
 
                 if (yaml.IsTarget)
                 {
-                    result += $"{yaml.Context}:{yaml.Number} \"{yaml.Dest}\" ";
+                    if (yaml.Dest == null) result += $"{yaml.Context}:{yaml.Number} \"{yaml.Origin}\" ";
+                    else result += $"{yaml.Context}:{yaml.Number} \"{yaml.Dest}\" ";
                 }
 
-                if (yaml.Comment != "")
-                {
-                    result += yaml.Comment;
-                }
+                if (yaml.Comment != "") result += yaml.Comment;
 
                 result += "\n";
             }
@@ -105,6 +93,11 @@ namespace Translate_Support_Tool_WPF_Main
             var save = new SaveFileDialog {Filter = "Yaml (*.yml; *.yaml)|*.yml; *.yaml"};
             if (save.ShowDialog() == true)
                 File.WriteAllText(save.FileName, result);
+        }
+
+        [Serializable]
+        public class YamlList : List<TranslateItem>
+        {
         }
     }
 }

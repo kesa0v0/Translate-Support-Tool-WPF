@@ -11,42 +11,42 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
                 <MenuItem Header="_Import" Click="MenuItem_Import" />
-                <MenuItem Header="_Export" Click="MenuItem_Export"/>
+                <MenuItem Header="_Export" Click="MenuItem_Export" />
                 <Separator />
                 <MenuItem Header="_Open" Click="MenuItem_Open" />
-                <MenuItem Header="_Save" Click="MenuItem_Save" InputGestureText="Ctrl+S"/>
-                <MenuItem Header="_Save As" Click="MenuItem_Save_As" InputGestureText="Ctrl+Shift+S"/>
+                <MenuItem Header="_Save" Click="MenuItem_Save" InputGestureText="Ctrl+S" />
+                <MenuItem Header="_Save As" Click="MenuItem_Save_As" InputGestureText="Ctrl+Shift+S" />
                 <Separator />
                 <MenuItem Header="_Setting" />
             </MenuItem>
             <MenuItem Header="_Edit">
-                      <MenuItem Header="_Undo" Command="ApplicationCommands.Undo" />
-                      <MenuItem Header="_Redo" Command="ApplicationCommands.Redo" />
+                <MenuItem Header="_Undo" Command="ApplicationCommands.Undo" />
+                <MenuItem Header="_Redo" Command="ApplicationCommands.Redo" />
             </MenuItem>
         </Menu>
-        
+
         <TextBlock Name="FilePathTextBlock" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                    TextWrapping="NoWrap" Padding="0, 2, 0 ,2" Margin="0 ,0, 0, 1"
                    Background="LightGray" />
-        
+
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="7*" />
             </Grid.ColumnDefinitions>
 
             <ListBox Name="TextList" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      SelectionMode="Single" SelectionChanged="TextList_SelectionChanged"
-                     Background="LightGray" >
+                     Background="LightGray">
                 <ListBox.ItemTemplate>
                     <!-- 리스트 아이템 1개 -->
                     <DataTemplate DataType="translateSupportToolWpfMain:TranslateItem">
@@ -85,43 +85,41 @@
             </ListBox>
 
             <GridSplitter Grid.Column="1" Width="1"
-                          VerticalAlignment="Stretch" 
-                          HorizontalAlignment="Center"/>
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Center" />
 
             <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="5*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="5*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="6*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5*" />
                 </Grid.RowDefinitions>
 
                 <TextBlock Name="Context"
-                       Grid.Row="0"
-                       HorizontalAlignment="Stretch"
-                       VerticalAlignment="Stretch"
-                       TextWrapping="Wrap"
-                       Foreground="Gray"
-                       Padding="2, 2, 2, 4"
-                />
+                           Grid.Row="0"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch"
+                           TextWrapping="Wrap"
+                           Foreground="Gray"
+                           Padding="2, 2, 2, 4" />
                 <Border Grid.Row="1" BorderThickness="0, 0, 0, 0.25" BorderBrush="DimGray" />
                 <TextBlock Name="Origin"
                            Grid.Row="2"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Stretch"
                            TextWrapping="Wrap"
-                           Padding="4, 4, 4, 4"
-                />
+                           Padding="4, 4, 4, 4" />
                 <Button Name="Save" Grid.Row="3" HorizontalAlignment="Right" Height="30" Width="100" Content="Confirm"
                         Margin="0, 0, 5, 5"
-                            
-                        Click="Confirm_OnClick"/>
+
+                        Click="Confirm_OnClick" />
                 <Border Grid.Row="4" BorderThickness="0, 0, 0, 0.25" BorderBrush="DimGray" />
                 <TextBox Name="Dest"
                          Grid.Row="5"
@@ -131,8 +129,7 @@
                          BorderThickness="0,0,0,0"
                          Margin="0, 1, 0, 1"
                          KeyDown="Dest_OnKeyDown"
-                         TextChanged="Dest_OnTextChanged"
-                />
+                         TextChanged="Dest_OnTextChanged" />
 
                 <Border Grid.Row="6" BorderThickness="0, 0, 0, 0.25" BorderBrush="DimGray" />
                 <TextBlock
@@ -140,14 +137,14 @@
                     Name="WordDictionaryRecommend"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    TextWrapping="Wrap"/>
+                    TextWrapping="Wrap" />
 
                 <Border Grid.Row="8" BorderThickness="0, 0, 0, 0.25" BorderBrush="DimGray" />
                 <TextBlock Grid.Row="9"
                            Name="MachineTranslateRecommend"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Stretch"
-                           TextWrapping="Wrap"/>
+                           TextWrapping="Wrap" />
             </Grid>
         </Grid>
     </Grid>
