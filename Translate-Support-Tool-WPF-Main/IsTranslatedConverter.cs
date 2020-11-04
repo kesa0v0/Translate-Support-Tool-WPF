@@ -8,7 +8,19 @@ namespace Translate_Support_Tool_WPF_Main
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            string Data;
+
+            switch ((string)parameter)
+            {
+                case "reverse":
+                    Data = "test";
+                    break;
+                default: 
+                    Data = "야스야스";
+                    break;
+            }
+
+            return Data;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
